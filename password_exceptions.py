@@ -32,7 +32,8 @@ class InvalidCharacterException(Exception):
     """
 
     def __init__(self):
-        self.msg = "Password contains an invalid character"
+        self.msg = f"Password must contain at least one special character"
+        ##self.msg = "Password contains an invalid character"
 
     def __str__(self) -> str:
         return self.msg

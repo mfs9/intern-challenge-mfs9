@@ -8,6 +8,8 @@ class LengthChecker:
     """
 
     def __init__(self, password: str, min_length: int = 8) -> None:
+        self.password = password
+        self.min_length = min_length
         length = len(self.password)
         if length <= self.min_length:
             raise ShortPasswordException

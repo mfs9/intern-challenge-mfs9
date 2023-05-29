@@ -5,6 +5,9 @@ from score_calculation import ScoreCalculation
 from common_password_checker import CommonPasswordChecker
 
 
+
+
+
 def validate_password(pwd):
     print("Checking for invalid characters")
     InvalidChecker(pwd)
@@ -25,5 +28,7 @@ def validate_password(pwd):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("password")
     pwd = parser.parse_args().password
     validate_password(pwd)
+

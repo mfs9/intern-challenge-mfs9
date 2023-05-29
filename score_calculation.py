@@ -16,4 +16,27 @@ class ScoreCalculation:
 
     def check_score_characters(self):
         # Write your code here
+        special_chars = "!$%&\()*+-/?@_"
+
+        #Pontuação por caracteres alfanumericos
+        for char in self.password:
+            if char.isalnum():
+                self.score +=1
+
+        #Pontuação por caracteres especiais
+        for char in self.password:
+            if char in special_chars:
+                self.score +=3
+
+        #Penalidade por palavras comuns
+        if self.common_checker:
+            self.score -=8
+
+        #Penalidade por repetição de caracteres
+        for i in range(len(self.password) - 1):
+            if self.password[i] == self.password[i+1]:
+                self.score -=2
+
+
+
         return self.score
