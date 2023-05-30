@@ -7,6 +7,7 @@ class LengthChecker:
     If lower than 8, the password is invalid
     """
 
+
     def __init__(self, password: str, min_length: int = 8) -> None:
         self.password = password
         self.min_length = min_length
