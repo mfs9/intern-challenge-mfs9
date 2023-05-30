@@ -1,5 +1,7 @@
 from variation_checker import VariationChecker
 from common_password_checker import CommonPasswordChecker
+from password_exceptions import MissingCharacterException
+from password_exceptions import InsufficientScoreException
 
 
 class ScoreCalculation:
@@ -11,6 +13,8 @@ class ScoreCalculation:
     def __init__(self, password: str) -> None:
         self.password = password
         self.checker = VariationChecker(password)
+     
+
         self.common_checker = CommonPasswordChecker(password).check_common()
         self.score = 0
 
@@ -18,24 +22,30 @@ class ScoreCalculation:
         # Write your code here
         special_chars = "!$%&\()*+-/?@_"
 
-        #Pontuação por caracteres alfanumericos
+        #Points for alphanumeric chars
         for char in self.password:
             if char.isalnum():
                 self.score +=1
 
-        #Pontuação por caracteres especiais
+        #Points for special chars
         for char in self.password:
             if char in special_chars:
                 self.score +=3
 
-        #Penalidade por palavras comuns
+        #Common words penalty
         if self.common_checker:
             self.score -=8
 
-        #Penalidade por repetição de caracteres
+        #Char repetition penalty
         for i in range(len(self.password) - 1):
             if self.password[i] == self.password[i+1]:
                 self.score -=2
+
+        #Minimum score validation
+        if self.score < 16:
+            raise InsufficientScoreException(self.score)
+
+        
 
 
 

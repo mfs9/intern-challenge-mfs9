@@ -1,6 +1,6 @@
 import re
 import string
-
+from password_exceptions import MissingCharacterException
 
 class VariationChecker:
     """
@@ -12,29 +12,21 @@ class VariationChecker:
      If not, the password is invalid
     """
 
-    # Write your code here
-
     def __init__(self, password):
         self.password = password
+        self.is_valid()
 
     def is_valid(self):
-        #Checando por um valor numerico
+        # Checking for a numerical digit
         if not any(char.isdigit() for char in self.password):
-            print("Password must contain one numerical digit.")
-            return False
-        #Checando por um caractere especial
+            raise MissingCharacterException('numerical digit')
+        # Checking for a special character
         special_characters = string.punctuation
         if not any(char in special_characters for char in self.password):
-            print("Password must contain one special character.")
-            return False
-        #Checar por letra maiuscula
+            raise MissingCharacterException('special character')
+        # Checking for an uppercase letter
         if not any(char.isupper() for char in self.password):
-            print("Password must contain one uppercase letter")
-            return False
-        #Checar por letra minuscula
+            raise MissingCharacterException('uppercase letter')
+        # Checking for a lowercase letter
         if not any(char.islower() for char in self.password):
-            print("Password must contain one lowercase letter.")
-            return False
-        
-        #Caso passe por todas as checagens
-        return True
+            raise MissingCharacterException('lowercase letter')

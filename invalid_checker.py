@@ -1,4 +1,5 @@
 from password_exceptions import InvalidCharacterException
+from password_exceptions import MissingCharacterException
 
 
 class InvalidChecker:
@@ -8,6 +9,16 @@ class InvalidChecker:
     """
 
     def __init__(self, password: str) -> None:
-        special_chars = "!$%&\()*+-/?@_"
-        if not any(char in special_chars for char in password):
-            raise InvalidCharacterException
+        self.password = password
+        self.special_chars = "!$%&\()*+-/?@_" 
+        self.check_validity()
+
+    def check_validity(self):
+        # Checking if there's any invalid character
+        for char in self.password:
+            if char not in self.special_chars and not char.isalnum():
+                raise InvalidCharacterException()
+
+        # Checking if there's at least one special character
+        if not any(char in self.special_chars for char in self.password):
+            raise MissingCharacterException("special character")
